@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/flo/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/scripts/)",
+      "Bash(bash /Users/flo/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0/skills/brainstorming/scripts/start-server.sh --project-dir /Users/flo/Documents/03_projets/claude/flashcards-vocab)",
+      "Bash(git -C /Users/flo/Documents/03_projets/claude/flashcards-vocab status)",
+      "Bash(git -C /Users/flo/Documents/03_projets/claude/flashcards-vocab diff)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Add Claude settings and gitignore brainstorm artifacts *)"
+    ]
+  }
+}
