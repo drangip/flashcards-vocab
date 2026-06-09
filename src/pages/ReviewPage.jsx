@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { useReview } from '../hooks/useReview'
 import FlipCard from '../components/FlipCard'
@@ -10,6 +10,8 @@ export default function ReviewPage({ user }) {
 
   const { queue, currentCard, sessionDone, loading, error, startSession, recordAnswer } =
     useReview(user?.id, themeId)
+
+  const [answerError, setAnswerError] = useState(null)
 
   useEffect(() => {
     startSession()
@@ -55,13 +57,32 @@ export default function ReviewPage({ user }) {
         </p>
       </div>
 
+      {answerError && (
+        <div className="mb-4 p-3 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400 text-sm text-center">
+          Erreur lors de l'enregistrement : {answerError}
+        </div>
+      )}
       {currentCard && (
         <FlipCard
           front={currentCard.front}
           back={currentCard.back}
           example={currentCard.example}
-          onCorrect={() => recordAnswer(currentCard, true)}
-          onWrong={() => recordAnswer(currentCard, false)}
+          onCorrect={async () => {
+            try {
+              setAnswerError(null)
+              await recordAnswer(currentCard, true)
+            } catch (err) {
+              setAnswerError(err.message)
+            }
+          }}
+          onWrong={async () => {
+            try {
+              setAnswerError(null)
+              await recordAnswer(currentCard, false)
+            } catch (err) {
+              setAnswerError(err.message)
+            }
+          }}
         />
       )}
     </div>

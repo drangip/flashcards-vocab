@@ -12,6 +12,7 @@ export default function CardsPage({ user }) {
   const { cards, loading, createCard, updateCard, deleteCard } = useCards(user?.id, filterThemeId)
   const [showCreate, setShowCreate] = useState(false)
   const [editingId, setEditingId] = useState(null)
+  const [deleteError, setDeleteError] = useState(null)
 
   async function handleCreate(values) {
     await createCard(values)
@@ -25,11 +26,21 @@ export default function CardsPage({ user }) {
 
   async function handleDelete(card) {
     if (!window.confirm(`Supprimer "${card.front}" ?`)) return
-    await deleteCard(card.id)
+    try {
+      setDeleteError(null)
+      await deleteCard(card.id)
+    } catch (err) {
+      setDeleteError(err.message)
+    }
   }
 
   return (
     <div className="max-w-2xl mx-auto">
+      {deleteError && (
+        <div className="mb-4 p-3 bg-red-900/20 border border-red-500/30 rounded-lg text-red-400 text-sm">
+          Erreur : {deleteError}
+        </div>
+      )}
       <div className="flex items-center justify-between mb-4">
         <h1 className="text-2xl font-bold text-white">Mes cartes</h1>
         <button

@@ -27,17 +27,26 @@ export function useThemes(userId) {
       if (cErr) throw cErr
 
       const now = new Date().toISOString()
+      // Cards past their review date
       const { data: dueData, error: dErr } = await supabase
         .from('card_progress')
         .select('card_id')
         .lte('next_review_at', now)
       if (dErr) throw dErr
 
+      // All cards that have ANY progress record
+      const { data: hasProgressData, error: hErr } = await supabase
+        .from('card_progress')
+        .select('card_id')
+      if (hErr) throw hErr
+
       const dueCardIds = new Set((dueData || []).map(p => p.card_id))
+      const hasProgressIds = new Set((hasProgressData || []).map(p => p.card_id))
 
       const enriched = (themesData || []).map(theme => {
         const themeCards = (cardsData || []).filter(c => c.theme_id === theme.id)
-        const dueCount = themeCards.filter(c => dueCardIds.has(c.id)).length
+        // A card is due if: it has a past-due progress row OR it has no progress row at all (new card)
+        const dueCount = themeCards.filter(c => dueCardIds.has(c.id) || !hasProgressIds.has(c.id)).length
         return { ...theme, card_count: themeCards.length, due_count: dueCount }
       })
 
