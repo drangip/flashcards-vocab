@@ -25,7 +25,7 @@ export default function FlipCard({ front, back, example, onCorrect, onWrong }) {
         >
           {/* Front */}
           <div className="flip-card-front absolute inset-0 bg-navy-800 border border-navy-700 rounded-2xl flex flex-col items-center justify-center p-8 shadow-xl">
-            <div className="text-xs text-gray-500 uppercase tracking-widest mb-4">🇬🇧 Anglais</div>
+            <div className="text-xs text-gray-500 uppercase tracking-widest mb-4">🇫🇷 Français</div>
             <div className="text-4xl font-extrabold text-white text-center">{front}</div>
             {!flipped && (
               <button
@@ -39,7 +39,7 @@ export default function FlipCard({ front, back, example, onCorrect, onWrong }) {
 
           {/* Back */}
           <div className="flip-card-back absolute inset-0 bg-navy-800 border border-navy-700 rounded-2xl flex flex-col items-center justify-center p-8 shadow-xl">
-            <div className="text-xs text-gray-500 uppercase tracking-widest mb-4">🇫🇷 Traduction</div>
+            <div className="text-xs text-gray-500 uppercase tracking-widest mb-4">🇬🇧 Anglais</div>
             <div className="text-3xl font-extrabold text-white text-center mb-3">{back}</div>
             {example && (
               <p className="text-gray-400 text-sm italic text-center">"{example}"</p>
