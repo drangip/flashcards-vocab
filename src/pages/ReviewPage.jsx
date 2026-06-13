@@ -64,8 +64,8 @@ export default function ReviewPage({ user }) {
       )}
       {currentCard && (
         <FlipCard
-          front={currentCard.back}
-          back={currentCard.front}
+          front={currentCard.front}
+          back={currentCard.back}
           example={currentCard.example}
           onCorrect={async () => {
             try {
