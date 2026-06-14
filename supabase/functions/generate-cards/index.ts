@@ -54,14 +54,14 @@ serve(async (req) => {
 Rules:
 - Focus on words and expressions genuinely used in the context of "${theme}"
 - Mix vocabulary types: nouns, verbs, adjectives, idiomatic expressions, collocations
-- Each card must have: front (English), back (French), example (one natural English sentence using the word/expression)
+- Each card must have: front (French), back (English), example (one natural English sentence using the word/expression)
 - Avoid basic words already known by any French speaker (do not include "the", "a", "is", etc.)
 - Vary difficulty: include both intermediate and advanced vocabulary
 
 Return ONLY a valid JSON object with this exact structure, no markdown, no explanation:
 {
   "cards": [
-    { "front": "leverage", "back": "tirer parti de / levier", "example": "We need to leverage our existing data assets." },
+    { "front": "tirer parti de / levier", "back": "leverage", "example": "We need to leverage our existing data assets." },
     ...
   ]
 }`
